@@ -1,0 +1,271 @@
+//212-Соболев-Никита
+
+#include <iostream>
+#include <fstream>
+#include <math.h>
+#include <random>
+#include <vector>
+
+double ran();
+
+double ran() 
+{
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<> dis(0,1);
+    return dis(gen);
+}
+
+class Hill
+{
+private:
+    double x; //координаты 
+    double y;
+    double dispx;
+    double dispy;
+    double dispxy;
+    double hight; //высота холма
+public:
+    Hill(double size_x, double size_y);
+    Hill(double x0, double y0, double dispx0, double dispy0, double hight0);
+
+    //Гауссово распределение в точке, относительно холмика
+    double Gauss(double x0, double y0);
+
+    void set_x(double a) {x=a;}
+    double get_x() const {return x;}
+
+    void set_y(double a) {y=a;}
+    double get_y() const {return y;}
+
+    void set_dispx(double a) {dispx=a;}
+    double get_dispx() const {return dispx;}
+
+    void set_dispy(double a) {dispy=a;}
+    double get_dispy() const {return dispy;}
+
+    void set_dispxy(double a) {dispxy=a;}
+    double get_dispxy() const {return dispxy;}
+
+    void set_hight(double a) {hight=a;}
+    double get_hight() const {return hight;}
+    
+};
+
+Hill::Hill(double x0, double y0, double dispx0, double dispy0, double hight0)
+{
+    set_x(x0); set_y(y0); set_dispx(dispx0); set_dispy(dispy0);
+    
+    double a = ran() * get_dispx() * get_dispy();
+    set_dispxy(a); set_hight(hight0);
+}
+
+double Hill::Gauss(double x0, double y0)
+{
+    double r = dispxy / (dispx * dispy);
+    return hight * exp(-((x-x0)*(x-x0)/(dispx * dispx)
+            - 2 * r * (x-x0)*(y-y0)/(dispx * dispy)
+             + (y-y0)*(y-y0)/(dispy * dispy))/(2 * (1-r*r)))/(2 * dispx * dispy * sqrt(1-r*r));
+}
+
+
+class Stoun
+{
+private:
+    double x;
+    double y;
+    double r;
+public:
+    Stoun(double x0, double y0, double r0);
+
+    void set_x(double a) {x=a;}
+    double get_x() const {return x;}
+
+    void set_y(double a) {y=a;}
+    double get_y() const {return y;}
+
+    void set_r(double a) {r=a;}
+    double get_r() const {return r;}
+
+    double sphere(double x0, double y0);
+
+};
+
+Stoun::Stoun(double x0, double y0, double r0)
+{
+    set_x(x0); set_y(y0); set_r(r0);
+}
+
+double Stoun::sphere(double x0, double y0)
+{
+    if (r*r - (x-x0)*(x-x0) - (y-y0)*(y-y0) > 0)
+    {
+        return sqrt(r*r - (x-x0)*(x-x0) - (y-y0)*(y-y0));
+    }
+    return 0;
+}
+
+class Log
+{
+private:
+    double x1;
+    double y1;
+    double x2;
+    double y2;
+    double r; 
+public:
+    Log(double x01, double y01, double x02, double y02, double r0);
+
+    void set_x1(double a) {x1=a;}
+    double get_x1() const {return x1;}
+
+    void set_y1(double a) {y1=a;}
+    double get_y1() const {return y1;}
+
+    void set_x2(double a) {x2=a;}
+    double get_x2() const {return x2;}
+
+    void set_y2(double a) {y2=a;}
+    double get_y2() const {return y2;}
+
+    void set_r(double a) {r=a;}
+    double get_r() const {return r;}
+
+    double cylinder(double x0, double y0);
+};
+
+Log::Log(double x01, double y01, double x02, double y02, double r0)
+{
+    set_x1(x01); set_y1(y01); set_x2(x02); set_y2(y02); set_r(r0);
+}
+
+double Log::cylinder(double x0, double y0)
+{
+    double A = y2-y1;
+    double B = x2-x1;
+    double D = A * A + B * B;
+    double C1 = (-y1 * B - x1 * A);
+    double C2 = B * (x1+x2) / 2 - A * (y1+y2) / 2;
+    double d1 = abs(A * x0 + B * y0 + C1) / sqrt(D);
+    double d2 = abs(-B * x0 + A * y0 + C2) / sqrt(D);
+    if(r * r > d1 * d1 && D/4 > d2 * d2)
+    {
+        return sqrt(r * r - d1 *d1);
+    }
+    return 0;
+}
+
+//Ландшафт
+class Landscape
+{
+private:
+    double size_x; //размеры поверхности
+    double size_y;
+    std::vector<Hill> hills; 
+    std::vector<Stoun> stouns;
+    std::vector<Log> logs;
+    int count_hills;
+    int count_stouns;
+    int count_logs;
+public:
+    Landscape() = default;
+    Landscape(double x, double y);
+
+
+    // Записываем в файл, для рисунка в GNUplot
+    //void print(std::ofstream &file1, std::ofstream &file2, std::ofstream &file3) const;
+
+    void set_sizex(double a) {size_x = a;}
+    double get_sizex() const {return size_x;}
+
+    void set_sizey(double a) {size_y = a;}
+    double get_sizey() const {return size_y;}
+
+
+    void create(int h, int s, int l);
+    void draw();
+
+};
+
+Landscape::Landscape(double x, double y)
+{
+    if (x<0 || y < 0) throw 1;
+    set_sizex(x); set_sizey(y);
+}
+
+void Landscape::create(int h, int s, int l)
+{
+    double x, y, dispx, dispy, hight, R, x2, y2;
+    int i;
+    for(i = 0; i < h; i++)
+    {
+        x = ran() * get_sizex();
+        y = ran() * get_sizey();
+        dispx = ran() + 1.5;
+        dispy = ran() + 1;
+        hight = ran()*30 - 15 ;
+        hills.push_back(Hill(x, y, dispx, dispy, hight));
+    }
+
+    for(i = 0; i < s; i++)
+    {
+        x = ran() * get_sizex();
+        y = ran() * get_sizey();
+        R = ran() + 0.5;
+        stouns.push_back(Stoun(x, y, R));
+    }
+
+    for(i = 0; i < l; i++)
+    {
+        x = ran() * get_sizex();
+        y = ran() * get_sizey();
+        x2 = ran() * get_sizex();
+        y2 = ran() * get_sizey();
+        R = ran() - 0.2;
+        logs.push_back(Log(x, y, x2, y2, R));
+    }
+}
+
+
+void Landscape::draw()
+{
+    double z;
+    std::ofstream fout("out.txt");
+    for(double i = 0; i <= size_x; i += size_x /200)
+    {
+        for(double j = 0; j < size_y; j += size_y/200)
+        {
+            z=0;
+            for(std::vector<Hill>::size_type k=0; k < hills.size(); k++)
+            {
+                z+=hills[k].Gauss(i, j);
+            }
+            for(std::vector<Stoun>::size_type k=0; k < stouns.size(); k++)
+            {
+                z+=stouns[k].sphere(i, j);
+            }
+            for(std::vector<Log>::size_type k=0; k < logs.size(); k++)
+            {
+                z+=logs[k].cylinder(i, j);
+            }
+            fout << i << " " << j << " " << z << std::endl;
+        }
+        fout << std::endl;
+    }
+}
+
+
+
+
+int main()
+{
+
+    Landscape landscape(50, 50);
+    landscape.create(50, 15, 7);
+    landscape.draw();
+    return 0;
+
+}
+
+
+
