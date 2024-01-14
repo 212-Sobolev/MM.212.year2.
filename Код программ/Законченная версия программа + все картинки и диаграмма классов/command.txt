@@ -1,0 +1,19 @@
+create_field 10 10
+create_hill 3 3 0.4 0.4 4
+create_hill 5 5 1 1 -6
+create_hill 4 6 0.3 0.5 1.5
+create_hill 6 4 0.2 0.6 3
+create_hill 2.75 3 0.4 0.4 -4
+create_hill 6.84 7.22 0.4 0.4 2
+create_hill 4 7 0.4 0.4 -4
+create_hill 1 7 0.4 0.4 4
+create_hill 7 8 0.4 0.4 -5
+create_hill 8 6 0.4 0.4 1.5
+create_hill 4 1 0.4 0.4 
+create_hill 6 2 0.3 0.6 -4
+random_hills 25
+random_stones 3
+random_logs 2
+make_rout
+print_field
+exit

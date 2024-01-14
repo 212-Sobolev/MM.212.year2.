@@ -1,0 +1,60 @@
+Commands for Landscape:
+
+Command: create_field | waiting params:
+1) double X - size Landscape of X
+2) double Y - size Landscape of Y
+Waiting form of command: create_field X Y
+-------------------------------------------------------------------------
+Command: create_hill  | waiting params:
+1) double X - coord x of center hill
+2) double Y - coord y of center hill
+3) double DispX - dipersion of x
+4) double DispY - despersion of y
+5) double Hight - hight of hill
+Wating form of command: create_hill X Y DispX DispY Hight
+-------------------------------------------------------------------------
+Command: create_stone  | waiting params:
+1) double X - coord x of center stone
+2) double Y - coord y of center stone
+3) double R - radius of stone
+Wating form of command: create_stone X Y R
+-------------------------------------------------------------------------
+Command: create_log    | waiting params:
+1) double X1 - coord x the center of first edge of the log
+2) double Y1 - coord y the center of first edge of the log
+3) double X2 - coord x the center of the second edge of the log
+4) double Y2 - coord the center of the second edge of the log
+5) double R - radius the log
+Wating form of command: create_log X1 Y1 X2 Y2 R
+-------------------------------------------------------------------------
+Command: print_field   | no params
+Waiting form of command: print_field
+-------------------------------------------------------------------------
+Command: random_hills  | waiting params:
+int H - count generate hills
+Waiting form of command: random_hills H
+-------------------------------------------------------------------------
+Command: random_stones | waiting params:
+int S - count generate stones
+Waiting form of command: random_stones S
+-------------------------------------------------------------------------
+Command: random_logs   | waiting params:
+int L - count generate logs
+Waiting form of command: random_logs L
+
+Commands for Rover:
+
+Command: rover_move    | waiting params:
+string Dir - direction of rover move (NN, NE, EE, SE, SS, SW, WW, NW)
+Waiting form of command: rover_move Dir
+-------------------------------------------------------------------------
+Command: create_rover  | waiting parms:
+1) double X - position rover of x
+2) double Y - position rover of y
+Waiting form of command: create_rover X Y
+-------------------------------------------------------------------------
+Command: make_rout     | no params
+Waiting form of command: make_rout
+-------------------------------------------------------------------------
+Command: exit          | no params
+Waiting form of command: exit

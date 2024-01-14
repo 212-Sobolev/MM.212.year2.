@@ -1,0 +1,54 @@
+Fri Dec 01 01:08:26 2023
+Command executed: create_field | A 10 by 10 field was generated
+
+Fri Dec 01 01:08:26 2023
+Command executed: create_hill | A hill was created with parameters x is: 3, y is: 3, dispx is: 0.4, dispy is: 0.4, hight is: 4
+
+Fri Dec 01 01:08:26 2023
+Command executed: create_hill | A hill was created with parameters x is: 5, y is: 5, dispx is: 1, dispy is: 1, hight is: -6
+
+Fri Dec 01 01:08:26 2023
+Command executed: create_hill | A hill was created with parameters x is: 4, y is: 6, dispx is: 0.3, dispy is: 0.5, hight is: 1.5
+
+Fri Dec 01 01:08:26 2023
+Command executed: create_hill | A hill was created with parameters x is: 6, y is: 4, dispx is: 0.2, dispy is: 0.6, hight is: 3
+
+Fri Dec 01 01:08:26 2023
+Command executed: create_hill | A hill was created with parameters x is: 2.75, y is: 3, dispx is: 0.4, dispy is: 0.4, hight is: -4
+
+Fri Dec 01 01:08:26 2023
+Command executed: create_hill | A hill was created with parameters x is: 6.84, y is: 7.22, dispx is: 0.4, dispy is: 0.4, hight is: 2
+
+Fri Dec 01 01:08:26 2023
+Command executed: create_hill | A hill was created with parameters x is: 4, y is: 7, dispx is: 0.4, dispy is: 0.4, hight is: -4
+
+Fri Dec 01 01:08:26 2023
+Command executed: create_hill | A hill was created with parameters x is: 1, y is: 7, dispx is: 0.4, dispy is: 0.4, hight is: 4
+
+Fri Dec 01 01:08:26 2023
+Command executed: create_hill | A hill was created with parameters x is: 7, y is: 8, dispx is: 0.4, dispy is: 0.4, hight is: -5
+
+Fri Dec 01 01:08:26 2023
+Command executed: create_hill | A hill was created with parameters x is: 8, y is: 6, dispx is: 0.4, dispy is: 0.4, hight is: 1.5
+
+Fri Dec 01 01:08:26 2023
+Command executed: create_hill | A hill was created with parameters x is: 4, y is: 1, dispx is: 0.4, dispy is: 0.4, hight is: 4
+
+Fri Dec 01 01:08:26 2023
+Command executed: create_hill | A hill was created with parameters x is: 6, y is: 2, dispx is: 0.3, dispy is: 0.6, hight is: -4
+
+Fri Dec 01 01:08:26 2023
+Command executed: random_hills 25 hills randomly generated
+
+Fri Dec 01 01:08:26 2023
+Command executed: random_stouns 3 stouns randomly generated
+
+Fri Dec 01 01:08:26 2023
+Command executed: random_logs 2 logs randomly generated
+
+Fri Dec 01 01:08:26 2023
+Command executed: make_rout 
+
+Fri Dec 01 01:08:30 2023
+field was generated in file out2.txt
+
